@@ -1,106 +1,174 @@
-# Projeto Docker: Consulta de ASN por IP/Domínio
+# 🔍 ASN Lookup Tool
 
-Este documento fornece instruções para construir e rodar o contêiner Docker para o projeto `app_consulta_asn`.
+> **Uma aplicação web Flask para consulta de informações ASN (Autonomous System Number) através de IPs ou domínios**
 
-## Pré-requisitos
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](LICENSE)
 
-Antes de começar, certifique-se de que você tem o Docker instalado em sua máquina. Você pode baixar e instalar o Docker a partir de [docker.com](https://www.docker.com/products/docker-desktop).
+## 📋 Sobre o Projeto
 
-## Configuração do Projeto
+Esta aplicação permite consultar informações detalhadas de ASN (Autonomous System Number) através de endereços IP ou nomes de domínio. Desenvolvida com Flask e integrada à API do IPinfo, oferece uma interface web simples e intuitiva para análise de dados de rede.
 
-### 1. Clonar o Repositório do GitHub
+### ✨ Funcionalidades
 
-Abra o terminal e clone o repositório para o seu ambiente local com o comando:
+- 🌐 **Consulta por IP ou Domínio**: Suporte para ambos os formatos de entrada
+- 🔄 **Resolução Automática**: Converte domínios para IP automaticamente
+- 📊 **Informações Detalhadas**: ASN, ISP, localização geográfica e mais
+- 🐳 **Docker Ready**: Containerização completa para fácil deployment
+- 📱 **Interface Responsiva**: Design moderno e mobile-friendly
 
-```bash
-git clone https://github.com/renylson/consulta_asn.git
-```
+## 🚀 Tecnologias Utilizadas
 
-Isso vai baixar o projeto para a sua máquina.
+- **Backend**: Python 3.8+ / Flask
+- **API**: IPinfo.io
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Containerização**: Docker & Docker Compose
+- **Deployment**: Pronto para produção
 
-### 2. Navegar até a Pasta do Projeto
-
-Depois que o repositório for clonado, entre na pasta do projeto:
-
-```bash
-cd consulta_asn
-``` 
-
-### 3. Inserir a API Key do [IPinfo](https://ipinfo.io/)
-
-Antes de construir a imagem Docker, você precisa inserir a sua API Key do [IPinfo](https://ipinfo.io/) no arquivo `app.py`. Abra o `app.py` e localize a linha onde a API Key é configurada. Substitua o valor da chave pela sua API Key.
-
-```python
-
-# Inserir sua API key no lugar do 'SUA_API_KEY_AQUI
-API_KEY = 'SUA_API_KEY_AQUI'
+## 📁 Estrutura do Projeto
 
 ```
-### 4. Construir a Imagem Docker
-
-No diretório do projeto onde o arquivo Dockerfile está localizado, execute o seguinte comando para construir a imagem Docker:
-
-```bash
-
-
-docker build -t app_consulta_asn .
-
-```
-### 5. Rodar o Contêiner Docker
-
-Depois de construir a imagem, execute o seguinte comando para rodar o contêiner Docker:
-
-```bash
-
-docker run -d -p 5000:5000  --name app_consulta_asn app_consulta_asn
+consulta_asn/
+├── app.py                 # Aplicação Flask principal
+├── requirements.txt       # Dependências Python
+├── Dockerfile            # Configuração Docker
+├── docker-compose.yml    # Orquestração de containers
+├── templates/            # Templates HTML
+│   ├── index.html       # Página inicial
+│   └── results.html     # Página de resultados
+├── static/              # Arquivos estáticos
+│   ├── styles.css      # Estilos CSS
+│   └── logo.png        # Logo da aplicação
+└── README.md           # Documentação
 
 ```
 
-Isso iniciará o contêiner em segundo plano (`-d`) e mapeará a porta 5000 do contêiner para a porta 5000 da sua máquina local.
+## ⚡ Início Rápido
 
-### 6. Verificar o Contêiner
+### 📋 Pré-requisitos
 
-Para verificar se o contêiner está rodando corretamente, use o comando:
+- Python 3.8+ ou Docker
+- Conta no [IPinfo.io](https://ipinfo.io/) (para obter API key gratuita)
 
-```bash
+### 🔧 Instalação Local
 
-docker ps 
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/renylson/consulta_asn.git
+   cd consulta_asn
+   ```
+
+2. **Configure a API Key**
+   ```python
+   # No arquivo app.py, linha 11
+   API_KEY = 'sua_api_key_aqui'
+   ```
+
+3. **Instale as dependências**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Execute a aplicação**
+   ```bash
+   python app.py
+   ```
+
+5. **Acesse no navegador**
+   ```
+   http://localhost:5000
+   ```
+
+### 🐳 Execução com Docker
+
+1. **Clone e configure**
+   ```bash
+   git clone https://github.com/renylson/consulta_asn.git
+   cd consulta_asn
+   ```
+
+2. **Construa e execute**
+   ```bash
+   docker build -t asn-lookup .
+   docker run -d -p 5000:5000 --name asn-app asn-lookup
+   ```
+
+   **Ou usando Docker Compose:**
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Acesse a aplicação**
+   ```
+   http://localhost:5000
+   ```
+
+## 💡 Como Usar
+
+1. **Acesse a aplicação** no seu navegador
+2. **Digite IPs ou domínios** (separados por vírgula para múltiplas consultas)
+3. **Clique em "Consultar"** para obter as informações
+4. **Visualize os resultados** com dados detalhados de cada entrada
+
+### 📝 Exemplos de Entrada
 
 ```
-Isso exibirá uma lista dos contêineres em execução, incluindo `app_consulta_asn`.
+8.8.8.8
+google.com
+github.com, 1.1.1.1
+192.168.1.1/24
+```
 
-### 7. Acessar o Aplicativo
-
-Após o contêiner estar rodando, você pode acessar o aplicativo na seguinte URL:
+## 🛠️ Comandos Docker Úteis
 
 ```bash
+# Visualizar containers em execução
+docker ps
 
-http://<seu_ip>:5000
+# Verificar logs da aplicação
+docker logs asn-app
 
+# Parar a aplicação
+docker stop asn-app
+
+# Remover container
+docker rm asn-app
 ```
-### 8. Encerrar o Contêiner
 
-Para parar e remover o contêiner, você pode usar os comandos:
+## 🤝 Contribuindo
 
-```bash
+Contribuições são sempre bem-vindas! Para contribuir:
 
-docker stop app_consulta_asn
-docker rm app_consulta_asn
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
-```
-## Problemas e Suporte
+## 📝 Licença
 
-Se você encontrar algum problema, verifique os logs do contêiner com o comando:
+Este projeto está sob **todos os direitos reservados**. O código é disponibilizado para:
+- ✅ **Visualização e aprendizado** para fins educacionais
+- ✅ **Análise técnica** por recrutadores e colegas
+- ✅ **Referência em portfolio** profissional
 
-```bash
+**⚠️ IMPORTANTE**: Qualquer uso comercial ou redistribuição requer autorização expressa.
 
-docker logs app_consulta_asn
+Para permissões além da visualização, entre em contato através dos canais abaixo.
 
-```
-Para suporte adicional, consulte a documentação oficial do Docker ou entre em contato.
+📋 **Leia**: [USAGE_RIGHTS.md](USAGE_RIGHTS.md) para entender claramente o que pode e não pode fazer  
+⚖️ **Licença**: [LICENSE](LICENSE) para termos legais completos
 
-Aproveite `app_consulta_asn`!
+## 📧 Contato
 
-### Contato:
+**Renylson Marques**
 
-### [Clique aqui](https://gravatar.com/renylsonm)
+- 📧 Email: [renylsonm@gmail.com](mailto:renylsonm@gmail.com)
+- 💼 LinkedIn: [linkedin.com/in/renylsonmarques](https://linkedin.com/in/renylsonmarques)
+- 🔗 GitHub: [github.com/renylson](https://github.com/renylson)
+
+---
+
+⭐ **Se este projeto foi útil para você, considere dar uma estrela!**

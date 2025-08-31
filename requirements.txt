@@ -1,2 +1,9 @@
-Flask
-requests
+# Core dependencies
+Flask==2.3.3
+requests==2.31.0
+
+# Production server (optional)
+gunicorn==21.2.0
+
+# Development dependencies
+flask-cors==4.0.0
