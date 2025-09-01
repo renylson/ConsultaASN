@@ -1,6 +1,9 @@
-# 🔍 ASN Lookup Tool
+# 🔍 Consulta ASN
 
 > **Uma aplicação web Flask para consulta de informações ASN (Autonomous System Number) através de IPs ou domínios**
+
+![Screenshot 1](./Screenshot_1.png)
+![Screenshot 2](./Screenshot_2.png)
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
